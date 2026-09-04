@@ -187,7 +187,9 @@
 
                     <div id="survey-container" class="relative z-10">
                         
-                        <!-- Paso 1: Disponibilidad de cupo -->
+                        <!-- ========================================== -->
+                        <!-- PASO 1: ¡ESTE ES EL QUE EL USUARIO VE! -->
+                        <!-- ========================================== -->
                         <div id="step-1" class="step-container active-step text-center">
                             <h3 class="text-2xl md:text-3xl font-extrabold mb-8 tracking-tight leading-snug">1. ¿Actualmente tienes un cupo disponible?</h3>
                             <div class="flex flex-col gap-4 max-w-md mx-auto">
@@ -472,7 +474,7 @@
             const message = `¡Hola Carlos! (Cód: CM-7842) Vengo de la página web y quiero asesoría.\n\n*📋 Resumen de mi Solicitud:*\n\n${summaryBlock}\n\n*👤 Mis Datos:*\n- *Nombre:* ${surveyData.name}\n- *Celular:* ${surveyData.phone}\n- *Cédula (CC):* ${surveyData.cc}\n\nQuedo atento(a) para recibir tu llamada/mensaje.`;
             
             const encodedMessage = encodeURIComponent(message);
-            const phoneNumber = "573181914279"; // Número de celular actualizado
+            const phoneNumber = "573169487494"; // Número de celular actualizado
             
             // Abrir WhatsApp automáticamente
             const waUrl = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodedMessage}`;
@@ -490,18 +492,24 @@
         }
 
         // =============================================================
-        // 👇 SOLO ESTO SE AGREGA: SCROLL AUTOMÁTICO A LA ENCUESTA
+        // 👇 SCROLL EXACTO AL PASO 1 DE LA ENCUESTA
         // =============================================================
-        // Cuando la página cargue, hacer scroll suave hasta la sección de la encuesta
+        // Cuando la página cargue, hacer scroll suave exactamente al paso 1
         window.addEventListener('load', function() {
-            const encuestaSection = document.getElementById('encuesta');
-            if (encuestaSection) {
+            // Buscar el contenedor del paso 1
+            var step1 = document.getElementById('step-1');
+            if (step1) {
+                // Esperar un momento para que todo se renderice
                 setTimeout(function() {
-                    encuestaSection.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
+                    // Calcular la posición exacta del paso 1
+                    var rect = step1.getBoundingClientRect();
+                    var scrollTarget = window.pageYOffset + rect.top - 30; // 30px de margen superior
+                    
+                    window.scrollTo({
+                        top: scrollTarget,
+                        behavior: 'smooth'
                     });
-                }, 400);
+                }, 500);
             }
         });
         // =============================================================
